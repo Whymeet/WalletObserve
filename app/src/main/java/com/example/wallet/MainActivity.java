@@ -11,6 +11,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import classes.ListOperations;
 import classes.OperationsAdapter;
+import classes.fabric.MinustCreateFabric;
+import classes.fabric.OperationsFactory;
+import classes.fabric.PlusCreateFabric;
 import classes.operations.*;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,17 +21,19 @@ public class MainActivity extends AppCompatActivity {
     private ListView listViewOperations;
     private Button buttonAddOperation;
 
+    private OperationsAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        System.out.println("Вывод");
 
         textViewBalance = findViewById(R.id.textViewBalance);
         listViewOperations = findViewById(R.id.listViewOperations);
         buttonAddOperation = findViewById(R.id.buttonAddOperation);
 
         // Адаптер для ListView
-        OperationsAdapter adapter = new OperationsAdapter(this, ListOperations.getSingleton().getListOperation());
+        adapter = new OperationsAdapter(this, ListOperations.getSingleton().getListOperation());
         listViewOperations.setAdapter(adapter);
 
         // Обновление баланса
@@ -60,18 +65,16 @@ public class MainActivity extends AppCompatActivity {
 
         Button buttonIncome = bottomSheetDialog.findViewById(R.id.buttonIncome);
         Button buttonExpense = bottomSheetDialog.findViewById(R.id.buttonExpense);
+        OperationsFactory factory;
+
 
         buttonIncome.setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
-
-            //todo сделать здесь создание plus
             openOperationActivity(true);
         });
 
         buttonExpense.setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
-            //todo сделать здесь создание minus
-
             openOperationActivity(false);
         });
 
@@ -88,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         updateBalance();
-        // Вам может потребоваться также обновить данные в ListView здесь
+        System.out.println("Вывод");
+        adapter.clear();
+        adapter.addAll(ListOperations.getSingleton().getListOperation());
+        adapter.notifyDataSetChanged();
+
     }
 }

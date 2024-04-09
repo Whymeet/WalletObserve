@@ -10,20 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Сумма"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal"
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/editTextDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Дата (необязательно)"
-        android:inputType="date"/>
+        android:inputType="date"
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/editTextRemark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Примечание"/>
+        android:hint="Примечание"
+        android:minHeight="48dp" />
 
     <Button
         android:id="@+id/buttonCreateOperation"
