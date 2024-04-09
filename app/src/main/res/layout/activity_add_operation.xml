@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Сумма"
+        android:inputType="numberDecimal"/>
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Дата (необязательно)"
+        android:inputType="date"/>
+
+    <EditText
+        android:id="@+id/editTextRemark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Примечание"/>
+
+    <Button
+        android:id="@+id/buttonCreateOperation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Создать операцию"/>
+
+</LinearLayout>

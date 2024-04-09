@@ -6,14 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textViewBalance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Баланс: 0"
+            android:gravity="center"
+            android:textSize="24sp"/>
 
+        <ListView
+            android:id="@+id/listViewOperations"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/buttonAddOperation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Добавить операцию"/>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
