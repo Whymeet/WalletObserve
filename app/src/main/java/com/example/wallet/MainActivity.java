@@ -3,7 +3,7 @@ package com.example.wallet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
+
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,33 +22,37 @@ public class MainActivity extends AppCompatActivity {
     private ListView listViewOperations;
     private Button buttonAddOperation;
 
-    private ListOperations operations = ListOperations.getSingleton();
-    //private OperationsAdapter adapter;
+    private ListOperations operations;
     private OperationsAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Инициализация с контекстом
+        operations = ListOperations.getSingleton(getApplicationContext());
 
         textViewBalance = findViewById(R.id.textViewBalance);
         listViewOperations = findViewById(R.id.listViewOperations);
         buttonAddOperation = findViewById(R.id.buttonAddOperation);
 
-        // Адаптер для ListView
-        adapter = new OperationsAdapter(this, operations.getListOperation());
-        listViewOperations.setAdapter(adapter);
-        // Обновление баланса
-        updateBalance();
+        // Обновление UI
+        updateUI();
 
         buttonAddOperation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showOperationTypeDialog();
+        @Override
+        public void onClick(View v) {
+            showOperationTypeDialog();
             }
         });
     }
 
+        private void updateUI() {
+            adapter = new OperationsAdapter(this, operations.getListOperation());
+            listViewOperations.setAdapter(adapter);
+            updateBalance();
+        }
     private void updateBalance() {
         double balance = 0;
         for (IOperation operation : operations.getListOperation()) {
@@ -91,14 +95,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
-        updateBalance();
-
-        // Инициализация и установка адаптера для ListView
-        adapter = new OperationsAdapter(this, operations.getListOperation());
-        listViewOperations.setAdapter(adapter);
-
+        updateUI(); // Перезагрузка данных при возвращении в активность
     }
 }
+
