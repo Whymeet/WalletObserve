@@ -48,12 +48,16 @@ public class AddOperationActivity extends AppCompatActivity {
             }
 
             LocalDate date;
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-                date = LocalDate.parse(editTextDate.getText().toString(), formatter);
-            } catch (DateTimeParseException e) {
-                Toast.makeText(AddOperationActivity.this, "Некорректный ввод даты", Toast.LENGTH_SHORT).show();
-                return;
+            if (editTextDate.getText().toString().isEmpty()) {
+                date = LocalDate.now();
+            } else {
+                try {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                    date = LocalDate.parse(editTextDate.getText().toString(), formatter);
+                } catch (DateTimeParseException e) {
+                    Toast.makeText(AddOperationActivity.this, "Некорректный ввод даты", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
 
             String remark = editTextRemark.getText().toString();

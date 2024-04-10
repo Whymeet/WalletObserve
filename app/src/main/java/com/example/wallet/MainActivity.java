@@ -66,9 +66,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        textViewBalance.setText("Баланс: " + balance);
-        textViewIncome.setText("Доходы: " + income);
-        textViewExpense.setText("Расходы: " + expense);
+        textViewBalance.setText("Остаток:\n" + balance);
+        textViewIncome.setText("Доходы:\n" + income);
+        textViewExpense.setText("Расходы:\n" + expense);
     }
 
     private void showOperationTypeDialog() {

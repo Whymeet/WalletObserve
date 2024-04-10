@@ -1,4 +1,5 @@
 package com.example.wallet;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,16 +44,14 @@ public class OperationsAdapter extends BaseAdapter {
 
         IOperation operation = (IOperation) getItem(position);
 
-        // Установка текста элементов
         ((TextView) view.findViewById(R.id.textViewDate)).setText(operation.getDate().toString());
         ((TextView) view.findViewById(R.id.textViewAmount)).setText(String.format("%.2f", operation.getAmountMoney()));
         ((TextView) view.findViewById(R.id.textViewRemark)).setText(operation.getRemark());
-
         // Изменение цвета фона в зависимости от типа операции
         if (operation instanceof OperationPlus) {
-            view.setBackgroundColor(view.getContext().getResources().getColor(android.R.color.holo_green_light));
+            view.setBackgroundColor(view.getContext().getResources().getColor(R.color.green));
         } else if (operation instanceof OperationMinus) {
-            view.setBackgroundColor(view.getContext().getResources().getColor(android.R.color.holo_red_light));
+            view.setBackgroundColor(view.getContext().getResources().getColor(R.color.red));
         }
 
         return view;

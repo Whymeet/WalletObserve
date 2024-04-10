@@ -1,68 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textViewBalance"
-        android:layout_width="0dp"
+    <RelativeLayout
+        android:id="@+id/upper_bag"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Баланс: 0"
-        android:gravity="center"
-        android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/textViewIncome"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Доходы: 0"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/textViewBalance"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:id="@+id/textViewBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Остаток:\n 0"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"/>
 
-    <TextView
-        android:id="@+id/textViewExpense"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Расходы: 0"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/textViewIncome"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:id="@+id/textViewIncome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Доходы:\n 0"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_toStartOf="@id/textViewBalance"
+            android:layout_marginEnd="50dp"/>
+
+        <TextView
+            android:id="@+id/textViewExpense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Расходы:\n 0"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_toEndOf="@id/textViewBalance"
+            android:layout_marginStart="50dp"/>
+    </RelativeLayout>
 
     <ListView
+
         android:id="@+id/listViewOperations"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/textViewExpense"
-        app:layout_constraintBottom_toTopOf="@id/buttonAddOperation"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_width="match_parent"
+        android:layout_height="480dp"
+        android:layout_below="@id/upper_bag"
+        android:layout_marginTop="4dp"
+        android:layout_marginHorizontal="10dp"/>
+
 
     <Button
         android:id="@+id/buttonAddOperation"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:outlineAmbientShadowColor="#130A0A"
-
-        android:outlineSpotShadowColor="#884D4D"
-        android:shadowColor="#150F0F"
         android:text="Добавить операцию"
-        android:textColor="@color/white"
-        android:textColorHighlight="#421E1E"
-        android:textColorHint="#7E1F1F"
-        android:textColorLink="#150A0A"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:rippleColor="#422727"
-        app:strokeColor="#552323" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textColor="@color/black"
+
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"/>
+</RelativeLayout>
