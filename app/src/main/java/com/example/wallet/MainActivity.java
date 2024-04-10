@@ -18,7 +18,7 @@ import classes.fabric.OperationsFactory;
 import classes.operations.*;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView textViewBalance;
+    private TextView textViewBalance, textViewIncome, textViewExpense;
     private ListView listViewOperations;
     private Button buttonAddOperation;
 
@@ -30,14 +30,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Инициализация с контекстом
         operations = ListOperations.getSingleton(getApplicationContext());
 
         textViewBalance = findViewById(R.id.textViewBalance);
+        textViewIncome = findViewById(R.id.textViewIncome);
+        textViewExpense = findViewById(R.id.textViewExpense);
         listViewOperations = findViewById(R.id.listViewOperations);
         buttonAddOperation = findViewById(R.id.buttonAddOperation);
 
-        // Обновление UI
         updateUI();
 
         buttonAddOperation.setOnClickListener(new View.OnClickListener() {
@@ -48,22 +48,27 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-        private void updateUI() {
-            adapter = new OperationsAdapter(this, operations.getListOperation());
-            listViewOperations.setAdapter(adapter);
-            updateBalance();
-        }
-    private void updateBalance() {
-        double balance = 0;
+    private void updateUI() {
+        adapter = new OperationsAdapter(this, operations.getListOperation());
+        listViewOperations.setAdapter(adapter);
+        updateBalanceAndTransactions();
+    }
+
+    private void updateBalanceAndTransactions() {
+        double balance = 0, income = 0, expense = 0;
         for (IOperation operation : operations.getListOperation()) {
             if (operation instanceof OperationPlus) {
                 balance += operation.getAmountMoney();
+                income += operation.getAmountMoney();
             } else if (operation instanceof OperationMinus) {
                 balance -= operation.getAmountMoney();
+                expense += operation.getAmountMoney();
             }
         }
-        System.out.println("Тут вызывается метод update");
+
         textViewBalance.setText("Баланс: " + balance);
+        textViewIncome.setText("Доходы: " + income);
+        textViewExpense.setText("Расходы: " + expense);
     }
 
     private void showOperationTypeDialog() {
@@ -84,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             bottomSheetDialog.dismiss();
             openOperationActivity(false);
         });
-        updateBalance();
+        updateBalanceAndTransactions();
 
         bottomSheetDialog.show();
     }
