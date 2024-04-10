@@ -14,6 +14,7 @@ public class OperationPlus implements IOperation{
 
     // Конструктор, геттеры и сеттеры
     public OperationPlus(){
+        tags = new Tag();
         tags.setTags("доходы");
     }
     @Override
@@ -37,12 +38,18 @@ public class OperationPlus implements IOperation{
     }
 
     @Override
-    public List<String> getRemark() {
-        return tags.getTags();
+    public String getRemark() {
+        String result = String.join(" ", tags.getTags());
+        return result;
+
     }
 
     @Override
     public void setRemark(String remark) {
         tags.setTags(remark);
+    }
+
+    public List<String> getTags(){
+        return tags.getTags();
     }
 }

@@ -6,11 +6,16 @@ import java.util.List;
 
 public interface IOperation {
     double getAmountMoney();
+
     void setAmountMoney(double amountMoney);
 
     public LocalDate getDate();
+
     public void setDate(LocalDate date);
 
-    List<String> getRemark();
+    String getRemark();
+
     void setRemark(String remark);
+
+    public List<String> getTags();
 }

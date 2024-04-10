@@ -46,7 +46,7 @@ public class OperationsAdapter extends BaseAdapter {
 
         ((TextView) view.findViewById(R.id.textViewDate)).setText(operation.getDate().toString());
         ((TextView) view.findViewById(R.id.textViewAmount)).setText(String.format("%.2f", operation.getAmountMoney()));
-        ((TextView) view.findViewById(R.id.textViewRemark)).setText(operation.getRemark());
+        ((TextView) view.findViewById(R.id.textViewRemark)).setText(operation.getRemark().toString());
         // Изменение цвета фона в зависимости от типа операции
         if (operation instanceof OperationPlus) {
             view.setBackgroundColor(view.getContext().getResources().getColor(R.color.green));

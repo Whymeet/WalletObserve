@@ -53,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_AMOUNT, operation.getAmountMoney());
         values.put(COLUMN_DATE, operation.getDate().toString());
         values.put(COLUMN_TYPE, (operation instanceof OperationPlus) ? "plus" : "minus");
-        values.put(COLUMN_REMARK, operation.getRemark());
+        values.put(COLUMN_REMARK, operation.getRemark().toString());
 
         db.insert(TABLE_NAME, null, values);
         db.close();
@@ -113,7 +113,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 values.put(COLUMN_AMOUNT, operation.getAmountMoney());
                 values.put(COLUMN_DATE, operation.getDate().toString());
                 values.put(COLUMN_TYPE, (operation instanceof OperationPlus) ? "plus" : "minus");
-                values.put(COLUMN_REMARK, operation.getRemark());
+                values.put(COLUMN_REMARK, operation.getRemark().toString());
 
                 db.insert(TABLE_NAME, null, values);
             }
