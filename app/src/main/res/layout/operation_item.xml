@@ -6,15 +6,23 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textViewAmount"
-        android:layout_width="wrap_content"
+        android:id="@+id/textViewDate"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Amount"/>
+        android:layout_weight="1"
+        android:text="Дата"/>
 
     <TextView
-        android:id="@+id/textViewDate"
-        android:layout_width="wrap_content"
+        android:id="@+id/textViewAmount"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Date"/>
+        android:layout_weight="1"
+        android:text="Сумма"/>
+
+    <TextView
+        android:id="@+id/textViewRemark"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Комментарий"/>
 </LinearLayout>

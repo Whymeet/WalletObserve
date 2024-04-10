@@ -1,11 +1,12 @@
 package classes.operations;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class OperationPlus implements IOperation{
     private double amountMoney;
-    private Date operationDate;
+    private LocalDate operationDate;
     private String remark;
 
     // Конструктор, геттеры и сеттеры
@@ -20,18 +21,13 @@ public class OperationPlus implements IOperation{
     }
 
     @Override
-    public Date getOperationDate() {
-        return operationDate;
+    public LocalDate getDate() {
+        return this.operationDate;
     }
 
     @Override
-    public void setOperationDate(Date operationDate) {
-        this.operationDate = operationDate;
-    }
-
-    @Override
-    public Instant getDate() {
-        return null;
+    public void setDate(LocalDate date) {
+        this.operationDate = date;
     }
 
     @Override

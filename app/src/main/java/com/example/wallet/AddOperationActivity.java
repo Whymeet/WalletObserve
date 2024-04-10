@@ -1,23 +1,21 @@
 package com.example.wallet;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.time.Instant;
 import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import classes.ListOperations;
-import classes.OperationsAdapter;
 import classes.fabric.MinustCreateFabric;
 import classes.fabric.OperationsFactory;
 import classes.fabric.PlusCreateFabric;
@@ -62,9 +60,10 @@ public class AddOperationActivity extends AppCompatActivity {
                     try {
                         // Преобразование строки в double
                         double amount = Double.parseDouble(amountString);
-
+                        OperationPlus op3 = new OperationPlus();
                         // Вызов метода setAmountMoney с полученным значением
                         operation_money.setAmountMoney(amount);
+
                     } catch (NumberFormatException e) {
                         // Обработка исключения, если строка не может быть преобразована в число
                         // Например, показать Toast с ошибкой
@@ -83,40 +82,27 @@ public class AddOperationActivity extends AppCompatActivity {
                 String dateText = editTextDate.getText().toString();
                 if (!dateText.isEmpty()) {
                     try {
-
-                        Date date = Date.from(Instant.parse(dateText));
-
-
-                        operation_money.setOperationDate(date);
-                    } catch (NumberFormatException e) {
-                        // Обработка исключения, если строка не может быть преобразована в число
-                        // Например, показать Toast с ошибкой
+                        // Создаем форматтер с нужным форматом даты
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                        // Парсим строку в LocalDate
+                        LocalDate date = LocalDate.parse(dateText, formatter);
+                        operation_money.setDate(date);
+                    } catch (DateTimeParseException e) {
+                        // Обработка ошибки, если строка не соответствует формату даты
                         Toast.makeText(AddOperationActivity.this, "Некорректный ввод даты", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    operation_money.setOperationDate(Date.from(Instant.now()));
+                    // Если строка с датой пуста, используем текущую дату
+                    operation_money.setDate(LocalDate.now());
                 }
+
 
 
                 String remarkStr = editTextRemark.getText().toString();
 
-                if (!remarkStr.isEmpty()) {
-                    try {
 
-                        Date date = Date.from(Instant.parse(dateText));
-
-
-                        operation_money.setRemark(remarkStr);
-                    } catch (NumberFormatException e) {
-                        // Обработка исключения, если строка не может быть преобразована в число
-                        // Например, показать Toast с ошибкой
-                        Toast.makeText(AddOperationActivity.this, "Некорректный ввод даты", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    operation_money.setOperationDate(Date.from(Instant.now()));
-                }
                 listOperations.addOperation(operation_money);
-
+                finish();
 
             }
         });

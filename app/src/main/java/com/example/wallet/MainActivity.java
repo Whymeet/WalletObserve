@@ -3,17 +3,18 @@ package com.example.wallet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.time.Instant;
+import java.util.Date;
+
 import classes.ListOperations;
-import classes.OperationsAdapter;
-import classes.fabric.MinustCreateFabric;
 import classes.fabric.OperationsFactory;
-import classes.fabric.PlusCreateFabric;
 import classes.operations.*;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,21 +22,22 @@ public class MainActivity extends AppCompatActivity {
     private ListView listViewOperations;
     private Button buttonAddOperation;
 
+    private ListOperations operations = ListOperations.getSingleton();
+    //private OperationsAdapter adapter;
     private OperationsAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        System.out.println("Вывод");
+
 
         textViewBalance = findViewById(R.id.textViewBalance);
         listViewOperations = findViewById(R.id.listViewOperations);
         buttonAddOperation = findViewById(R.id.buttonAddOperation);
 
         // Адаптер для ListView
-        adapter = new OperationsAdapter(this, ListOperations.getSingleton().getListOperation());
+        adapter = new OperationsAdapter(this, operations.getListOperation());
         listViewOperations.setAdapter(adapter);
-
         // Обновление баланса
         updateBalance();
 
@@ -49,13 +51,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateBalance() {
         double balance = 0;
-        for (IOperation operation : ListOperations.getSingleton().getListOperation()) {
+        for (IOperation operation : operations.getListOperation()) {
             if (operation instanceof OperationPlus) {
                 balance += operation.getAmountMoney();
             } else if (operation instanceof OperationMinus) {
                 balance -= operation.getAmountMoney();
             }
         }
+        System.out.println("Тут вызывается метод update");
         textViewBalance.setText("Баланс: " + balance);
     }
 
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button buttonIncome = bottomSheetDialog.findViewById(R.id.buttonIncome);
         Button buttonExpense = bottomSheetDialog.findViewById(R.id.buttonExpense);
-        OperationsFactory factory;
+
 
 
         buttonIncome.setOnClickListener(v -> {
@@ -77,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
             bottomSheetDialog.dismiss();
             openOperationActivity(false);
         });
+        updateBalance();
 
         bottomSheetDialog.show();
     }
@@ -91,10 +95,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         updateBalance();
-        System.out.println("Вывод");
-        adapter.clear();
-        adapter.addAll(ListOperations.getSingleton().getListOperation());
-        adapter.notifyDataSetChanged();
+
+        // Инициализация и установка адаптера для ListView
+        adapter = new OperationsAdapter(this, operations.getListOperation());
+        listViewOperations.setAdapter(adapter);
 
     }
 }
