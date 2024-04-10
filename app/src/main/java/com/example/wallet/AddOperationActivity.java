@@ -61,9 +61,15 @@ public class AddOperationActivity extends AppCompatActivity {
             }
 
             String remark = editTextRemark.getText().toString();
+
+
+
+
             IOperation operation = isIncome ? new OperationPlus() : new OperationMinus();
             operation.setAmountMoney(amount);
             operation.setDate(date);
+
+
             operation.setRemark(remark);
 
             listOperations.addOperation(operation);

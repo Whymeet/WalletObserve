@@ -1,15 +1,19 @@
 package classes.operations;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
+
+import classes.tags.Tag;
 
 public class OperationMinus implements IOperation{
     private double amountMoney;
     private LocalDate operationDate;
-    private String remark;
+    private Tag teg;
 
     // Конструктор, геттеры и сеттеры
+    public OperationMinus(){
+        teg.setTags("расходы");
+    }
     @Override
     public double getAmountMoney() {
         return amountMoney;
@@ -29,12 +33,12 @@ public class OperationMinus implements IOperation{
     }
 
     @Override
-    public String getRemark() {
-        return remark;
+    public List<String> getRemark() {
+        return teg.getTags();
     }
 
     @Override
     public void setRemark(String remark) {
-        this.remark = remark;
+        teg.setTags(remark);
     }
 }
