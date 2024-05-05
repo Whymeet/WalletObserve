@@ -3,6 +3,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public interface IOperation {
     double getAmountMoney();
@@ -17,5 +18,5 @@ public interface IOperation {
 
     void setRemark(String remark);
 
-    public List<String> getTags();
+    public Set<String> getTags();
 }

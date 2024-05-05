@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import classes.tags.Tag;
 
@@ -49,7 +50,7 @@ public class OperationPlus implements IOperation{
         tags.setTags(remark);
     }
 
-    public List<String> getTags(){
+    public Set<String> getTags(){
         return tags.getTags();
     }
 }
