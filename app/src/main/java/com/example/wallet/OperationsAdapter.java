@@ -26,7 +26,7 @@ public class OperationsAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public IOperation getItem(int position) {
         return operations.get(position);
     }
 

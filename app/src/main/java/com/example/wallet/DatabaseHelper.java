@@ -46,51 +46,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addOperation(IOperation operation) {
-        SQLiteDatabase db = this.getWritableDatabase();
 
+    public long addOperation(IOperation operation) {
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_AMOUNT, operation.getAmountMoney());
         values.put(COLUMN_DATE, operation.getDate().toString());
         values.put(COLUMN_TYPE, (operation instanceof OperationPlus) ? "plus" : "minus");
         values.put(COLUMN_REMARK, operation.getRemark().toString());
 
-        db.insert(TABLE_NAME, null, values);
+        long id = db.insert(TABLE_NAME, null, values);
         db.close();
+        return id;
     }
 
     public List<IOperation> getAllOperations() {
         List<IOperation> operations = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COLUMN_DATE + " DESC";
-
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
+        int columnIndexId = cursor.getColumnIndex(COLUMN_ID);
         int columnIndexAmount = cursor.getColumnIndex(COLUMN_AMOUNT);
         int columnIndexDate = cursor.getColumnIndex(COLUMN_DATE);
         int columnIndexType = cursor.getColumnIndex(COLUMN_TYPE);
         int columnIndexRemark = cursor.getColumnIndex(COLUMN_REMARK);
 
-        if (columnIndexAmount == -1 || columnIndexDate == -1 || columnIndexType == -1 || columnIndexRemark == -1) {
-            // Логика обработки ошибки, например, можно вывести сообщение в лог
+        if (columnIndexAmount == -1 || columnIndexDate == -1 || columnIndexType == -1 || columnIndexRemark == -1 || columnIndexId == -1) {
             cursor.close();
             db.close();
-            return operations; // Возвращаем пустой список, так как не удалось найти один из столбцов
+            return operations; // Return empty list if a column was not found
         }
 
         if (cursor.moveToFirst()) {
             do {
-                IOperation operation;
-                if (cursor.getString(columnIndexType).equals("plus")) {
-                    operation = new OperationPlus();
-                } else {
-                    operation = new OperationMinus();
-                }
-
+                IOperation operation = (cursor.getString(columnIndexType).equals("plus")) ? new OperationPlus() : new OperationMinus();
+                operation.setId(cursor.getInt(columnIndexId));
                 operation.setAmountMoney(cursor.getDouble(columnIndexAmount));
                 operation.setDate(LocalDate.parse(cursor.getString(columnIndexDate)));
-                operation.setRemark(cursor.getString(columnIndexRemark));
-
+                operation.addRemark(cursor.getString(columnIndexRemark));
                 operations.add(operation);
             } while (cursor.moveToNext());
         }
@@ -98,6 +92,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return operations;
     }
+
 
     public void addOperationsList(List<IOperation> operations) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -123,5 +118,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.endTransaction(); // Завершение транзакции
             db.close(); // Закрытие базы данных
         }
+    }
+
+    public void deleteOperationById(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+    public int updateOperation(long id, IOperation operation) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_AMOUNT, operation.getAmountMoney());
+        values.put(COLUMN_DATE, operation.getDate().toString());
+        values.put(COLUMN_TYPE, (operation instanceof OperationPlus) ? "plus" : "minus");
+        values.put(COLUMN_REMARK, operation.getRemark());
+
+        int updateStatus = db.update(TABLE_NAME, values, COLUMN_ID + " = ?", new String[] {String.valueOf(id)});
+        db.close();
+        return updateStatus;
     }
 }

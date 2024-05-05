@@ -42,14 +42,24 @@ public class ListOperations {
         dbHelper.addOperationsList(listOperation);
     }
 
-    public void addOperation(IOperation operation) {
+    public long addOperation(IOperation operation) {
+        long newId = dbHelper.addOperation(operation);
+        operation.setId((newId));
         this.listOperation.add(operation);
-        updateDataBase(); // Обновление базы данных после добавления операции
+        return newId;
     }
-
-    public void removeOperation(IOperation operation) {
-        listOperation.remove(operation);
-        updateDataBase(); // Обновление базы данных после удаления операции
+    public void removeOperation(int operationId) {
+        IOperation toRemove = null;
+        for (IOperation operation : listOperation) {
+            if (operation.getId() == operationId) {
+                toRemove = operation;
+                break;
+            }
+        }
+        if (toRemove != null) {
+            listOperation.remove(toRemove);
+            dbHelper.deleteOperationById((int) toRemove.getId()); // Удаление операции из базы данных
+        }
     }
 
     public List<IOperation> getListOperation() {
@@ -67,5 +77,14 @@ public class ListOperations {
                 return o2.getDate().compareTo(o1.getDate());
             }
         });
+    }
+
+    public IOperation getOperationById(long operationId) {
+        for(IOperation operation : listOperation){
+            if(operation.getId() == operationId){
+                return operation;
+            }
+        }
+        throw new IllegalArgumentException("Операция с id" + operationId + " не найдена");
     }
 }

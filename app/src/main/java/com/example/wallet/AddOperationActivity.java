@@ -1,7 +1,6 @@
 package com.example.wallet;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -61,19 +60,17 @@ public class AddOperationActivity extends AppCompatActivity {
             }
 
             String remark = editTextRemark.getText().toString();
-
-
-
-
             IOperation operation = isIncome ? new OperationPlus() : new OperationMinus();
             operation.setAmountMoney(amount);
             operation.setDate(date);
+            operation.addRemark(remark);
 
+            // Присвоение ID после добавления в базу данных
+            long newId = listOperations.addOperation(operation);
+            operation.setId(newId);  // Устанавливаем ID операции
 
-            operation.setRemark(remark);
-
-            listOperations.addOperation(operation);
             finish();
         });
+
     }
 }

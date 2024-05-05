@@ -1,7 +1,6 @@
 package classes.operations;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 import classes.tags.Tag;
@@ -10,11 +9,12 @@ public class OperationMinus implements IOperation{
     private double amountMoney;
     private LocalDate operationDate;
     private Tag tags;
+    private long id;
 
     // Конструктор, геттеры и сеттеры
     public OperationMinus(){
         tags = new Tag();
-        tags.setTags("расходы");
+        tags.addTags("расходы");
     }
     @Override
     public double getAmountMoney() {
@@ -40,11 +40,25 @@ public class OperationMinus implements IOperation{
         return result;    }
 
     @Override
-    public void setRemark(String remark) {
+    public void addRemark(String remark) {
+        tags.addTags(remark);
+    }
+    public void setRemark(String remark){
         tags.setTags(remark);
     }
 
     public Set<String> getTags(){
         return tags.getTags();
+    }
+
+    @Override
+    public long getId() {
+
+        return id;
+    }
+    @Override
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

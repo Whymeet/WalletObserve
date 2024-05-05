@@ -1,8 +1,5 @@
 package classes.operations;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 public interface IOperation {
@@ -10,13 +7,16 @@ public interface IOperation {
 
     void setAmountMoney(double amountMoney);
 
-    public LocalDate getDate();
+    LocalDate getDate();
 
-    public void setDate(LocalDate date);
+    void setDate(LocalDate date);
 
     String getRemark();
 
-    void setRemark(String remark);
+    void addRemark(String remark);
 
-    public Set<String> getTags();
+    Set<String> getTags();
+    void setId(long id);
+    long getId();
+    void setRemark(String remark);
 }

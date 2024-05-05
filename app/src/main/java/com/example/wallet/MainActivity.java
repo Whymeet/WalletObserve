@@ -2,8 +2,11 @@ package com.example.wallet;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,6 +19,8 @@ import java.util.Date;
 import classes.ListOperations;
 import classes.fabric.OperationsFactory;
 import classes.operations.*;
+import com.example.wallet.R;
+
 
 public class MainActivity extends AppCompatActivity {
     private TextView textViewBalance, textViewIncome, textViewExpense;
@@ -38,14 +43,22 @@ public class MainActivity extends AppCompatActivity {
         listViewOperations = findViewById(R.id.listViewOperations);
         buttonAddOperation = findViewById(R.id.buttonAddOperation);
 
-        updateUI();
+        // Регистрация ListView для контекстного меню
+        registerForContextMenu(listViewOperations);
 
+        updateUI();
         buttonAddOperation.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            showOperationTypeDialog();
+            @Override
+            public void onClick(View v) {
+                showOperationTypeDialog();
             }
         });
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.context_menu, menu);
     }
 
     private void updateUI() {
@@ -100,7 +113,37 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int itemId = item.getItemId();
+        if (itemId == R.id.edit) {
+            // Реализация редактирования операции
+            editOperation(info.position);
+            return true;
+        } else if (itemId == R.id.delete) {
+            deleteOperation(info.position);
+            return true;
+        }
+        return super.onContextItemSelected(item);
+    }
 
+    private void deleteOperation(int position){
+        IOperation operation = adapter.getItem(position);
+        operations.removeOperation((int)operation.getId());
+        adapter.notifyDataSetChanged(); // Обновление адаптера после удаления
+        onResume();
+    }
+    private void editOperation(int position) {
+        IOperation operation = adapter.getItem(position);
+        Intent intent = new Intent(MainActivity.this, EditOperationActivity.class);
+        intent.putExtra("operationId", operation.getId());
+        intent.putExtra("amount", operation.getAmountMoney());
+        intent.putExtra("date", operation.getDate().toString());
+        intent.putExtra("remark", operation.getRemark());
+        intent.putExtra("isIncome", operation instanceof OperationPlus);
+        startActivity(intent);
+    }
     @Override
     protected void onResume() {
         super.onResume();
