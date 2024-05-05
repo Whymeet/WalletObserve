@@ -10,10 +10,13 @@ public class Tag {
 
     public void addTags(String string){
         Collections.addAll(tags, string.split(" "));
+        tags.remove("");
+
     }
     public void setTags(String string){
         tags.clear();
         Collections.addAll(tags, string.split(" "));
+        tags.remove("");
 
     }
     public Set<String> getTags(){

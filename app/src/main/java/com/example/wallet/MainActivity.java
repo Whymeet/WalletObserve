@@ -53,6 +53,16 @@ public class MainActivity extends AppCompatActivity {
                 showOperationTypeDialog();
             }
         });
+
+        // Инициализация UI компонентов
+        Button buttonViewStatistics = findViewById(R.id.buttonViewStatistics);
+        buttonViewStatistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, StatisticActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
