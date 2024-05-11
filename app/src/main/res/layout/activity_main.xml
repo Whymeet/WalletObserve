@@ -7,36 +7,40 @@
         android:id="@+id/upper_bag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#ff6750a4"
         android:padding="16dp">
         <!-- TextViews -->
         <TextView
             android:id="@+id/textViewBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Остаток:\n 0"
+            android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:textSize="18sp"
-            android:layout_centerHorizontal="true"/>
+            android:text="Остаток:\n 0"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textViewIncome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Доходы:\n 0"
-            android:gravity="center"
-            android:textSize="18sp"
+            android:layout_marginEnd="50dp"
             android:layout_toStartOf="@id/textViewBalance"
-            android:layout_marginEnd="50dp"/>
+            android:gravity="center"
+            android:text="Доходы:\n 0"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textViewExpense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Расходы:\n 0"
-            android:gravity="center"
-            android:textSize="18sp"
+            android:layout_marginStart="50dp"
             android:layout_toEndOf="@id/textViewBalance"
-            android:layout_marginStart="50dp"/>
+            android:gravity="center"
+            android:text="Расходы:\n 0"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <ListView
@@ -61,7 +65,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Добавить операцию"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/buttonViewStatistics"
