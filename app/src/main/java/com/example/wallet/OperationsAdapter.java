@@ -6,6 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import classes.operations.IOperation;
 import classes.operations.OperationMinus;
@@ -55,5 +59,20 @@ public class OperationsAdapter extends BaseAdapter {
         }
 
         return view;
+    }
+
+    public void sortByIncomeFirst(int tag) {
+        Collections.sort(operations, new Comparator<IOperation>() {
+            @Override
+            public int compare(IOperation o1, IOperation o2) {
+                if (o1 instanceof OperationPlus && o2 instanceof OperationMinus) {
+                    return -1 * tag;
+                } else if (o1 instanceof OperationMinus && o2 instanceof OperationPlus) {
+                    return 1 * tag;
+                }
+                return 0;
+            }
+        });
+        notifyDataSetChanged();
     }
 }

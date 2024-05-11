@@ -107,6 +107,7 @@
                     android:padding="16dp">
 
                     <TextView
+                        android:id="@+id/txtUSD"
                         android:layout_width="99dp"
                         android:layout_height="44dp"
                         android:layout_marginLeft="20dp"
@@ -115,16 +116,18 @@
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/txtEUR"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="10dp"
-                        android:text="EUR\n0"
 
+                        android:text="EUR\n0"
                         android:textAlignment="center"
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/txtCNY"
                         android:layout_width="96dp"
                         android:layout_height="45dp"
                         android:text="CNY\n0"
@@ -151,18 +154,21 @@
                     android:padding="16dp">
 
                     <TextView
+                        android:id="@+id/currentBalance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Текущий баланс:"
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/maxOperation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Максимальное поступление "
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/maxOperationminus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Максимальная трата"

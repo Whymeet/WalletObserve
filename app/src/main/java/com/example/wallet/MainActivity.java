@@ -63,6 +63,28 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        textViewIncome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.sortByIncomeFirst(1);
+            }
+        });
+
+        textViewExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.sortByIncomeFirst(-1);
+
+            }
+        });
+
+        textViewBalance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onResume();
+            }
+        });
     }
 
     @Override
