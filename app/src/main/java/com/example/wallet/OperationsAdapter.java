@@ -55,7 +55,7 @@ public class OperationsAdapter extends BaseAdapter {
         if (operation instanceof OperationPlus) {
             view.setBackgroundColor(view.getContext().getResources().getColor(R.color.green));
         } else if (operation instanceof OperationMinus) {
-            view.setBackgroundColor(view.getContext().getResources().getColor(R.color.red));
+            view.setBackgroundColor(view.getContext().getResources().getColor(R.color.orange));
         }
 
         return view;
